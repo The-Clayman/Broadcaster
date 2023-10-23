@@ -6,8 +6,6 @@ from queue import Queue
 from threading import Thread
 from time import sleep
 
-import ffmpeg
-
 import utils
 
 VIDEO_DIR = "videos/warehouse"

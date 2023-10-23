@@ -1,0 +1,6 @@
+{
+  "load_on_startup": "True",
+  "rtsp_url_domain": "rtsp://localhost:8554",
+  "ffmpeg_stream_command": "ffmpeg -re -stream_loop -1 -i {VIDEO_DIR}/{video_name}/{ts_file_name} -vcodec copy -an -f rtsp {rtsp_url}",
+  "ffmpeg_transcode_command": "ffmpeg -y -i {VIDEO_DIR}/{video_name}/{video_file_name} -c copy -an {VIDEO_DIR}/{video_name}/{ts_file_name}"
+}
