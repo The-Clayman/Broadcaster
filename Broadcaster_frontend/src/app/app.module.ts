@@ -10,11 +10,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VideoTableComponent } from './components/video-table/video-table.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VideoTableComponent
+    VideoTableComponent,
+    FileUploaderComponent
   ],
   imports: [
     BrowserModule,
