@@ -13,6 +13,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 })
 export class VideoTableComponent implements OnInit{
 
+  private timeIntevalSeconds:number = 2;
+
   videos:any = [];
   displayedColumns: string[] = ['video_name', 'status'];
   dataSource = new MatTableDataSource(this.videos);
@@ -21,6 +23,8 @@ export class VideoTableComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadData();
+    
+    setInterval(()=> { this.loadData() }, this.timeIntevalSeconds * 1000);
   }
 
   
