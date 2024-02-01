@@ -1,3 +1,4 @@
+import json
 import os
 
 import utils
@@ -18,6 +19,15 @@ class utils:
 
     def get_filename_from_path(path_with_file):
         return os.path.basename(path_with_file)
+
+    def wrap_message_in_json(message):
+        res = message
+        try:
+            res = json.dumps({"message": f"{message}"})
+        except :
+            res = message
+
+        return res
 
 
 utils.fstr = staticmethod(utils.fstr)

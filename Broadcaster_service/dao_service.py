@@ -37,6 +37,13 @@ class DaoService:
             res = self.videos
         return res
 
+    def get_video_array(self, video_key):
+        res = []
+        videos_dict = self.get_video(video_key)
+        if len(videos_dict) > 0:
+            res = list(videos_dict.values())
+        return res
+
     def get_video_status(self, video_key):
         status = ""
         video = self.get_video(video_key)
@@ -85,6 +92,7 @@ class DaoService:
         video = None
         if not self.videos.get(video_name):
             video = dict()
+            video['video_name'] = video_name
             video['status'] = "REGISTERED"
             video['file_name'] = file_name
             self.videos[video_name] = video

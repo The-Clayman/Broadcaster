@@ -1,3 +1,8 @@
 *.log
 Broadcaster_service/videos/upload
 Broadcaster_service/videos/warehouse
+
+# ide
+.idea/
+Broadcaster_service/.idea/
+Broadcaster_service/__pycache__/
