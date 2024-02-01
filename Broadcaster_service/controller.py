@@ -9,7 +9,7 @@ from broadcaster_app import BroadcasterApp
 from processor import UPLOAD_DIR, Processor
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/broadcaster/v1/*": {"origins": "*"}}, methods=["GET", "POST", "DELETE"])
 app.config['UPLOAD_FOLDER'] = UPLOAD_DIR
 
 
