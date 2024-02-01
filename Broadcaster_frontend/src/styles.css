@@ -12,3 +12,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   'GRAD' 0,
   'opsz' 24
 }
+
+.toaster-regular {
+    background: grey;
+}
+
+.toaster-error {
+    background: red;
+}

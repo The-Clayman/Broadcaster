@@ -33,8 +33,11 @@ export class FileUploaderComponent {
     if (this.fileData != null){
       const upload$ = this.broadcasterService.uploadFile(this.fileData);
 
-      upload$.subscribe();
-      this.toasterService.popToasterMessage("file uploaded")
+      upload$.subscribe(
+        res => {console.log('HTTP response', res); this.toasterService.popToasterMessage("video "+ this.fileName+ " uploaded", "regular")},
+        err => {console.log('HTTP Error', err); this.toasterService.popToasterMessage('Failed to upload video ['+ err.status+"],\n" + err.error.message, "error");},
+        () => {console.log('HTTP response'); this.toasterService.popToasterMessage("video "+ this.fileName+ " uploaded", "regular")}
+      );
 
     }  
 
