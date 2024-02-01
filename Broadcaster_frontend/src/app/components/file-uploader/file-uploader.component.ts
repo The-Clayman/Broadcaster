@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { BraodcasterService } from '../../services/braodcaster.service';
+import { ToasterService } from '../../services/toaster.service';
 
 @Component({
   selector: 'app-file-uploader',
@@ -11,7 +12,7 @@ export class FileUploaderComponent {
   fileName: string = "";
   private fileData:any = null;
 
-  constructor(private broadcasterService: BraodcasterService ){}
+  constructor(private broadcasterService: BraodcasterService , private toasterService:ToasterService){}
 
   onFileSelected(event: any) { 
 
@@ -27,12 +28,14 @@ export class FileUploaderComponent {
         this.fileData = formData;
     }
   }
-  
+
   onUploadClicked(){
     if (this.fileData != null){
       const upload$ = this.broadcasterService.uploadFile(this.fileData);
 
       upload$.subscribe();
+      this.toasterService.popToasterMessage("file uploaded")
+
     }  
 
   }
