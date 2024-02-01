@@ -39,7 +39,9 @@ export class FileUploaderComponent {
         () => {console.log('HTTP response'); this.toasterService.popToasterMessage("video "+ this.fileName+ " uploaded", "regular")}
       );
 
-    }  
+    } else {
+      this.toasterService.popToasterMessage("No file were selected to upload", "error");
+    } 
 
   }
 
