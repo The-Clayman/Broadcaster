@@ -1,6 +1,6 @@
 import logging
 import sys
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 from flask import Flask, request
 from werkzeug.utils import secure_filename
@@ -60,6 +60,7 @@ def get_videos():
     return data, response_code
 
 @app.route('/broadcaster/v1/videos/', methods=['POST'])
+@cross_origin()
 def add_video():
     #https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/
     global broadcaster

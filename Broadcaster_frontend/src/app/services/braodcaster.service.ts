@@ -32,4 +32,9 @@ export class BraodcasterService {
     const url = this.baseUrl+"/videos/"+video.video_name;
     return this.httpClient.delete<HttpResponse<any>>(url,{ headers })
   }
+
+  uploadFile(fileData: any){
+    const url = this.baseUrl + "/videos/";
+    return this.httpClient.post(url, fileData);
+  }
 }
