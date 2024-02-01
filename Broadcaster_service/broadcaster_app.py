@@ -32,6 +32,10 @@ class BroadcasterApp:
 
         return video
 
+    def get_video_array(self, video_name):
+        video = self.dao_service.get_video_array(video_name)
+        return video
+
     def delete_video(self, video_name):
         response_code = 200
         response_body = f"[{video_name}] deleted  successfully"
@@ -49,7 +53,7 @@ class BroadcasterApp:
     def reprocess_video(self, video_name):
         response_code = 200
         response_body = f"[{video_name}] reprocessed successfully"
-        video = self.dao_service.get_video(video_name)
+        video = self.dao_service.get_video_array(video_name)
         if video:
             process_task = dict()
             process_task['type'] = "TRANSCODE"

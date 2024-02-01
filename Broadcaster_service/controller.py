@@ -51,7 +51,7 @@ def get_videos():
     response_code = 200
     data = {}
     try:
-        data = broadcaster.get_video(None)
+        data = broadcaster.get_video_array(None)
     except Exception as e:
         logger.exception(f"get_videos Error accor [{e=}]")
         data = e
