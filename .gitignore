@@ -2,6 +2,11 @@
 Broadcaster_service/videos/upload
 Broadcaster_service/videos/warehouse
 
+Broadcaster_frontend/.editorconfig
+Broadcaster_frontend/.vscode/
+Broadcaster_frontend/node_modules
+Broadcaster_frontend/.angular/cache
+
 # ide
 .idea/
 Broadcaster_service/.idea/
