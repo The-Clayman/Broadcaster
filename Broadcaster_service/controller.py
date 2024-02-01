@@ -5,11 +5,12 @@ from flask_cors import CORS
 from flask import Flask, request
 from werkzeug.utils import secure_filename
 
+import utils
 from broadcaster_app import BroadcasterApp
 from processor import UPLOAD_DIR, Processor
 
 app = Flask(__name__)
-CORS(app, resources={r"/broadcaster/v1/*": {"origins": "*"}}, methods=["GET", "POST", "DELETE"])
+CORS(app, resources={r"/broadcaster/v1/*": {"origins": "*"}}, methods=["GET", "POST", "PUT", "DELETE"])
 app.config['UPLOAD_FOLDER'] = UPLOAD_DIR
 
 
@@ -39,7 +40,7 @@ def get_video(name):
             data = f"video [{name}] not found"
     except Exception as e:
         logger.exception(f"get_video [{name=}] Error accor [{e=}]")
-        data = e
+        data = utils.utils.wrap_message_in_json(str(e))
         return_code = 503
 
     return data, return_code
@@ -54,8 +55,8 @@ def get_videos():
         data = broadcaster.get_video_array(None)
     except Exception as e:
         logger.exception(f"get_videos Error accor [{e=}]")
-        data = e
-        return_code= 500
+        data = utils.utils.wrap_message_in_json(str(e))
+        response_code = 500
     return data, response_code
 
 @app.route('/broadcaster/v1/videos/', methods=['POST'])
@@ -82,7 +83,7 @@ def add_video():
         logger.exception(message)
         response_code = 500
 
-    return message, response_code
+    return utils.utils.wrap_message_in_json(message), response_code
 
 @app.route('/broadcaster/v1/videos/<name>', methods=['DELETE'])
 def delete_video(name):
@@ -95,7 +96,7 @@ def delete_video(name):
         response_code = 500
         response_body = f"error while processing [{name}], e={str(e)}"
 
-    return response_body, response_code
+    return utils.utils.wrap_message_in_json(response_body), response_code
 
 @app.route('/broadcaster/v1/videos/<video_name>', methods=['PUT'])
 def reprocess_video(video_name):
@@ -109,7 +110,7 @@ def reprocess_video(video_name):
         response_code = 500
 
 
-    return response_body, response_code
+    return utils.utils.wrap_message_in_json(response_body), response_code
 
 
 
@@ -124,7 +125,7 @@ def play_video(video_name):
         response_body = str(e)
         response_code = 500
 
-    return response_body, response_code
+    return utils.utils.wrap_message_in_json(response_body), response_code
 
 
 @app.route('/broadcaster/v1/player/<video_name>/stop', methods=['POST'])
@@ -138,7 +139,7 @@ def stop_video(video_name):
         response_body = str(e)
         response_code = 500
 
-    return response_body, response_code
+    return utils.utils.wrap_message_in_json(response_body), response_code
 
 
 @app.route('/broadcaster/v1/player/<video_name>/retranscode', methods=['POST'])
@@ -152,9 +153,7 @@ def retrascode_video(video_name):
         response_body = str(e)
         response_code = 500
 
-    return response_body, response_code
-
-
+    return utils.utils.wrap_message_in_json(response_body), response_code
 
 
 
