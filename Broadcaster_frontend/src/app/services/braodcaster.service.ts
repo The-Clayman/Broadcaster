@@ -14,4 +14,22 @@ export class BraodcasterService {
     const url = this.baseUrl + "/videos";
     return this.httpClient.get(url);
   }
+
+  playVideo(video: any) {
+    const url = this.baseUrl+"/player/"+video.video_name+"/play"
+    return this.httpClient.post(url, null);
+  }
+
+  stopVideo(video: any) {
+    const url = this.baseUrl+"/player/"+video.video_name+"/stop";
+    return this.httpClient.post(url, null);
+  }
+
+  deleteVideo(video: any) {
+  let headers = new HttpHeaders();
+  //headers = headers.set('Content-Type', 'application/json');
+
+    const url = this.baseUrl+"/videos/"+video.video_name;
+    return this.httpClient.delete<HttpResponse<any>>(url,{ headers })
+  }
 }

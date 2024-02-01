@@ -1,0 +1,24 @@
+table {
+    width: 70%;
+    align-items: center;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  .ready{
+    color: olivedrab;
+    font: bold;
+  }
+
+  .playing{
+    color: orange;
+    font: bold;
+  }
+
+  .failed_trancoding{
+    color: red;
+    font: bold;
+  }
+  

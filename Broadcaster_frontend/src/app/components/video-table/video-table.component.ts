@@ -1,6 +1,10 @@
 import { Component, OnInit} from '@angular/core';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
+import {Clipboard} from '@angular/cdk/clipboard';
 
 import { BraodcasterService } from '../../services/braodcaster.service';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-video-table',
@@ -10,12 +14,16 @@ import { BraodcasterService } from '../../services/braodcaster.service';
 export class VideoTableComponent implements OnInit{
 
   videos:any = [];
+  displayedColumns: string[] = ['video_name', 'status'];
+  dataSource = new MatTableDataSource(this.videos);
 
-  constructor(private broadcasetrService: BraodcasterService) {}
+  constructor(private broadcasetrService: BraodcasterService, private _liveAnnouncer: LiveAnnouncer, private clipboard: Clipboard) {}
 
   ngOnInit(): void {
     this.loadData();
   }
+
+  
 
   loadData(){
     var that = this;
@@ -28,5 +36,32 @@ export class VideoTableComponent implements OnInit{
   }
 
 
+  playVideo(item: any){
+    this.broadcasetrService.playVideo(item).subscribe(res => {
+      console.log("playVideo table",res)
+    }); 
+  }
+
+  stopVideo(item: any){
+    this.broadcasetrService.stopVideo(item).subscribe(res => {
+      console.log("stopVideo table",res)
+    });
+  }
+
+  deleteVideo(item: any) {
+
+    if (confirm('Do you want to remove this Video :' + item.video_name)) {
+      var that = this;
+      this.broadcasetrService.deleteVideo(item).subscribe(
+        res => {console.log('HTTP response', res);},
+        err => {console.log('HTTP Error', err); },
+        () => console.log('HTTP request completed.')
+
+      )
+    }
+  }
+  copyRtspLink(link:any) {
+    this.clipboard.copy('link');
+  }
 
 }
