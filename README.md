@@ -33,6 +33,10 @@ There are 2 ways to run the application:
   ```bash
   sudo docker-compose up -d
   ```
+Appliaction should be available on:
+[http://localhost:4200/](http://localhost:4200/)
+  
+
 &nbsp;
 #### 2.Docekr run commands
 1. Run the rtsp-server container:
@@ -47,7 +51,9 @@ There are 2 ways to run the application:
   ```bash
   sudo docker run -d --name broadcaster -v videos:/home/myuser/code/videos --network=host broadcaster_service
   ```
-sudo docker run --name broadcaster_frontend -d -p 4201:4200 broadcaster_frontend
+Appliaction should be available on:
+[http://localhost:4200/](http://localhost:4200/)
+
 &nbsp;
   *  *  *  *  *
 
