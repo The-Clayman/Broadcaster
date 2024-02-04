@@ -23,12 +23,12 @@ Run:
 &nbsp;
 
 
-### How to run the applicatoin:
+### How to run the application:
 There are 2 ways to run the application:
 
 # Docker compose:
   ```bash
-  udo docker-compose up -d
+  sudo docker-compose up -d
   ```
 
 # Docekr run commands
