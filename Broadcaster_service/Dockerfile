@@ -25,15 +25,15 @@ RUN apt-get update && apt-get install --no-install-recommends -y python3.9 pytho
 RUN useradd --create-home myuser
 COPY --from=builder-image /home/myuser/venv /home/myuser/venv
 
-USER myuser
+USER root
 RUN mkdir /home/myuser/code
 WORKDIR /home/myuser/code
 COPY . .
-USER root
+#USER root
 RUN rm -rf /home/myuser/code/videos && \
     rm -rf /home/myuser/code/venv \ && \
     rm -rf /home/myuser/code/.idea
-USER myuser
+#USER myuser
 RUN mkdir -p /home/myuser/code/videos/upload
 RUN mkdir -p /home/myuser/code/videos/warehouse
 

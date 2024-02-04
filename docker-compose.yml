@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  rtsp_simple_server:
+    image: aler9/rtsp-simple-server
+    network_mode: "host"
+
+  broadcaster_service:
+    image: broadcaster_service
+    ports:
+      - "5000:5000"
+    network_mode: "host"
+    volumes:
+      - videos:/home/myuser/code/videos
+
+  broadcaster_frontend:
+    image: broadcaster_frontend
+    ports:
+      - "4201:4200"
+    network_mode: "host"
+
+volumes:
+  videos:
