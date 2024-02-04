@@ -9,7 +9,8 @@ Broadcaster was created for running video files as rtsp streams, on demand, for 
 
 The application consist of 2 containers:
 1. rtsp-simple-server: rtsp server container.
-2. broadcaster: transcoding and straming application service container.
+2. broadcaster_service : transcoding and straming application service container.
+3. broadcaster_frontend : boardcaster fronend
 
   *  *  *  *  *
 &nbsp;
@@ -17,12 +18,20 @@ The application consist of 2 containers:
 ### How to build:
 Run:
 ```bash
-./build.sh
+./build_images.sh
 ```
 &nbsp;
 
 
 ### How to run the applicatoin:
+There are 2 ways to run the application:
+
+# Docker compose:
+  ```bash
+  udo docker-compose up -d
+  ```
+
+# Docekr run commands
 1. Run the rtsp-server container:
   ```bash
   sudo docker run -d --rm --name rtsp_server --network=host aler9/rtsp-simple-server`
@@ -31,10 +40,17 @@ Run:
   ```bash
   sudo docker run -d --name broadcaster --network=host broadcaster_service
   ```
+3. Run the broadcaseter frontend:
+  ```bash
+  sudo docker run -d --name broadcaster -v videos:/home/myuser/code/videos --network=host broadcaster_service
+  ```
+sudo docker run --name broadcaster_frontend -d -p 4201:4200 broadcaster_frontend
 &nbsp;
   *  *  *  *  *
  &nbsp; 
-# API
+
+
+# API - Dev
 &nbsp;
 &nbsp;
 ### Get all videos details
