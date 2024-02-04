@@ -47,33 +47,33 @@ export class VideoTableComponent implements OnInit{
 
   playVideo(item: any){
     this.broadcasetrService.playVideo(item).subscribe(
-      res => {console.log('HTTP response', res); this.toasterService.popToasterMessage("Video "+ item.video_name+ " play request sent", "regular")},
-      err => {console.log('HTTP Error', err); this.toasterService.popToasterMessage('Failed to play video ['+ err.status+"],\n" + err.error.message, "error");},
-      () => {console.log('HTTP response'); this.toasterService.popToasterMessage("Video "+ item.video_name+ " playe request sent", "regular")}
+      res => {console.log('HTTP response', res); this.toasterService.popToasterMessage("["+item.video_name+"] play request sent", "regular")},
+      err => {console.log('HTTP Error', err); this.toasterService.popToasterMessage('['+err.status+'] failed to play video: ' + err.error.message, "error");},
+      () => {console.log('HTTP response'); this.toasterService.popToasterMessage("["+item.video_name+"] play request sent", "regular")}
     ); 
   }
 
   stopVideo(item: any){
     this.broadcasetrService.stopVideo(item).subscribe(
-      res => {console.log('HTTP response', res); this.toasterService.popToasterMessage("Video "+ item.video_name+ " stop request sent", "regular")},
-      err => {console.log('HTTP Error', err); this.toasterService.popToasterMessage('Failed to stop video ['+ err.status+"],\n" + err.error.message, "error");},
-      () => {console.log('HTTP response'); this.toasterService.popToasterMessage("Video "+ item.video_name+ " stop request sent", "regular")}
+      res => {console.log('HTTP response', res); this.toasterService.popToasterMessage("["+item.video_name+"] stop request sent", "regular")},
+      err => {console.log('HTTP Error', err); this.toasterService.popToasterMessage('['+err.status+'] failed to stop video: ' + err.error.message, "error");},
+      () => {console.log('HTTP response'); this.toasterService.popToasterMessage("["+item.video_name+"] stop request sent", "regular")}
     );
   }
 
   deleteVideo(item: any) {
 
     if (item.status != "PLAYING"){
-      if (confirm('Do you want to remove this Video :' + item.video_name)) {
+      if (confirm('Delete the video [' + item.video_name + '] ?')) {
         var that = this;
         this.broadcasetrService.deleteVideo(item).subscribe(
-          res => {console.log('HTTP response', res); this.toasterService.popToasterMessage("Video "+ item.video_name+ " delete request sent", "regular")},
-          err => {console.log('HTTP Error', err); this.toasterService.popToasterMessage('Failed to delete video ['+ err.status+"],\n" + err.error.message, "error");},
-          () => {console.log('HTTP response'); this.toasterService.popToasterMessage("Video "+ item.video_name+ " delete request sent", "regular")}
+          res => {console.log('HTTP response', res); this.toasterService.popToasterMessage("["+ item.video_name+ "] delete request sent", "regular")},
+          err => {console.log('HTTP Error', err); this.toasterService.popToasterMessage('['+ err.status + '] failed to delete video: ' + err.error.message, "error");},
+          () => {console.log('HTTP response'); this.toasterService.popToasterMessage("["+ item.video_name+ "] delete request sent", "regular")}
         );
       }
     } else {
-      this.toasterService.popToasterMessage('Please stop  ['+ item.video_name +"] before stopping", "error");
+      this.toasterService.popToasterMessage('Please stop ['+ item.video_name +"] before deletion", "error");
     }
   }
   copyRtspLink(link:any) {
