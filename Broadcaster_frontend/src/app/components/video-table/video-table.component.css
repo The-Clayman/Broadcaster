@@ -1,7 +1,17 @@
 table {
     width: 70%;
     align-items: center;
+    border: 1px solid black;
+    border-collapse: collapse;
   }
+.app-tr {
+    border: 1px solid;
+}
+
+.app-tr-header {
+    border: 1px solid;
+    font-weight: bold;
+}
   
   th.mat-sort-header-sorted {
     color: black;
