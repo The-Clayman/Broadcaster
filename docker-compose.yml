@@ -3,21 +3,33 @@ version: '3'
 services:
   rtsp_simple_server:
     image: aler9/rtsp-simple-server
-    network_mode: "host"
+    ports:
+      - "8554:8554"
+    networks:
+      - broadcaster_network
+
 
   broadcaster_service:
     image: broadcaster_service
     ports:
       - "5000:5000"
-    network_mode: "host"
     volumes:
       - videos:/home/myuser/code/videos
+    networks:
+      - broadcaster_network
 
   broadcaster_frontend:
     image: broadcaster_frontend
     ports:
-      - "4201:4200"
-    network_mode: "host"
+      - "4200:4200"
+    volumes:
+      - ./Broadcaster_frontend/environment/environment.ts:/usr/src/app/environment/environment.ts
+    networks:
+      - broadcaster_network
 
 volumes:
   videos:
+
+networks:
+  broadcaster_network:
+    driver: bridge
