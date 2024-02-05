@@ -35,7 +35,20 @@ There are 2 ways to run the application:
   ```
 Appliaction should be available on:
 [http://localhost:4200/](http://localhost:4200/)
-  
+&nbsp;
+&nbsp;
+&nbsp;
+
+> **_NOTE:_**
+For a distributed deployment (which is still recommended for all deployment scenarios), it is advisable to configure the Boradcaster_service hostname/ip param.
+
+It can be achvied by updating the `broadcasterServiceHost` value in the env file located at `./Broadcaster_frontend/environment/environment.ts`:
+
+  ```ts
+export const environment = {
+    broadcasterServiceHost: 'http://<ip_or_host>:5000',
+  }
+  ```
 
 &nbsp;
 #### 2.Docekr run commands
