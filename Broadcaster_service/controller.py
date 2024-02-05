@@ -1,6 +1,7 @@
 import logging
 import sys
 from flask_cors import CORS, cross_origin
+from waitress import serve
 
 from flask import Flask, request
 from werkzeug.utils import secure_filename
@@ -196,6 +197,6 @@ if __name__ == '__main__':
     logger = init_logger()
     broadcaster = BroadcasterApp(logger)
     broadcaster.init_threads()
-    app.run()
+    serve(app, host="0.0.0.0", port=5000)
 
 
