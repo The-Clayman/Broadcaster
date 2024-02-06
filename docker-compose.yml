@@ -3,6 +3,7 @@ version: '3'
 services:
   rtsp_simple_server:
     image: aler9/rtsp-simple-server
+    container_name: rtsp_server
     ports:
       - "8554:8554"
     networks:
@@ -11,15 +12,18 @@ services:
 
   broadcaster_service:
     image: broadcaster_service
+    container_name: broadcaster_service
     ports:
       - "5000:5000"
     volumes:
       - videos:/home/myuser/code/videos
+      - ./Broadcaster_service/config.json:/home/myuser/code/config.json
     networks:
       - broadcaster_network
 
   broadcaster_frontend:
     image: broadcaster_frontend
+    container_name: broadcaster_frontend
     ports:
       - "4200:4200"
     volumes:
