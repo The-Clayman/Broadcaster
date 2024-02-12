@@ -35,7 +35,31 @@ There are 2 ways to run the application:
   ```
 Appliaction should be available on:
 [http://localhost:4200/](http://localhost:4200/)
-  
+&nbsp;
+&nbsp;
+&nbsp;
+
+> **_NOTE:_**
+For a distributed deployment (which is still recommended for all deployment scenarios), it is advisable to configure:
+>  1. The Broadcaster_service hostname/ip param.
+>  2. The Rtsp-simple-server hostname/ip param.
+>     &nbsp;
+> 
+> 1 .Broadcaster_service hostname/ip param: update the `broadcasterServiceHost` value in the env file located at `./Broadcaster_frontend/environment/environment.ts`:
+> 
+>   ```ts
+> export const environment = {
+>     broadcasterServiceHost: 'http://<broadcaster_serivce ip_or_host>:5000',
+>   }
+>  ```
+>
+> 2. The Rtsp-simple-server hostname/ip param: update the `rtsp_url_address` value in the conif file located at `./Broadcaster_service/config.json`:
+>
+>  ```json
+>{
+>  "rtsp_url_address": "rtsp://<rtsp-server ips or host>:8554/",
+>}
+>  ```
 
 &nbsp;
 #### 2.Docekr run commands
