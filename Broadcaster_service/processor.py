@@ -13,8 +13,12 @@ UPLOAD_DIR = "videos/upload"
 TRANSCODE_TIMEOUT_SEC = 15
 ALLOWED_EXTENSIONS = {'txt'}
 #TRANSCODE_COMMAND="ffmpeg -i abc.mp4 -c:v libx264 -c:a aac -b:a 160k -bsf:v h264_mp4toannexb -f mpegts -crf 32 pqr.ts"
-DEFAULT_FFMPEG_STREAM_COMMAND = "ffmpeg -re -stream_loop -1 -i {VIDEO_DIR}/{video_name}/{ts_file_name} -vcodec copy -an -f rtsp {rtsp_url}"
+DEFAULT_FFMPEG_STREAM_COMMAND = "ffmpeg -re -stream_loop -1 -i {VIDEO_DIR}/{video_name}/{ts_file_name} -vcodec copy -an -f rtsp {rtsp_command_url}"
 DEFAULT_FFMPEG_TRANSCODE_COMMAND = "ffmpeg -y -i {VIDEO_DIR}/{video_name}/{video_file_name} -c copy -an {VIDEO_DIR}/{video_name}/{ts_file_name}"
+
+# RTSP_SERVER_URL consist of the service hostname defined on the docker-compose file.
+# this param will be used for the rtsp stream command
+RTSP_SERVER_URL = "rtsp://rtsp_server:8554/"
 #short command : ffmpeg -i video1.mp4 -c copy -an video2.ts
 # ffmpeg -i video1.mp4 -c copy -an video2.ts
 
@@ -70,12 +74,14 @@ class Processor(Thread):
             if ts_file_name and status and status in ['READY', "FAILED_PLAYING"]:
                 rtsp_url_prefix = self.dau_service.config.get('rtsp_url_address') if self.dau_service.config.get('rtsp_url_address') else 'rtsp://localhost:8554/'
                 rtsp_url = f'{rtsp_url_prefix}{video_name}'
+                rtsp_command_url = f'{RTSP_SERVER_URL}{video_name}'
                 #default_ffmpeg_config_command = f"ffmpeg -re -stream_loop -1 -i {VIDEO_DIR}/{video_name}/{ts_file_name} -vcodec copy -an -f rtsp {rtsp_url}"
                 ffmpeg_stream_command = self.dau_service.config.get("ffmpeg_stream_command")
                 ffmpeg_stream_command = ffmpeg_stream_command if ffmpeg_stream_command != None else DEFAULT_FFMPEG_STREAM_COMMAND
                 command_string = utils.utils.fstr(ffmpeg_stream_command, locals(), globals=globals())
 
                 # example: ffmpeg -re -stream_loop -1 -i video1.ts -vcodec copy -an -f rtsp rtsp://localhost:8554/mystream
+                self.logger.debug(f"rtsp command: [{command_string}]")
                 process = self.execute_os_command(command_string, None)
                 pid = process.pid
                 return_code = process.returncode
