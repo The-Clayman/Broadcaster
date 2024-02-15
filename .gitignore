@@ -7,6 +7,11 @@ Broadcaster_frontend/.vscode/
 Broadcaster_frontend/node_modules
 Broadcaster_frontend/.angular/cache
 
+
+Broadcaster_front/.editorconfig
+Broadcaster_front/.vscode/
+Broadcaster_front/node_modules
+
 # ide
 .idea/
 Broadcaster_service/.idea/
