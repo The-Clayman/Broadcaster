@@ -21,13 +21,13 @@ services:
     networks:
       - broadcaster_network
 
-  broadcaster_frontend:
-    image: broadcaster_frontend
-    container_name: broadcaster_frontend
+  broadcaster_front:
+    image: broadcaster_front_dev
+    container_name: broadcaster_front
     ports:
-      - "4200:4200"
+      - "3000:3000"
     volumes:
-      - ./Broadcaster_frontend/environment/environment.ts:/usr/src/app/environment/environment.ts
+      - ./Broadcaster_front/src/properties.json:/app/src/properties.json
     networks:
       - broadcaster_network
 
