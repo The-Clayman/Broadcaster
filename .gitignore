@@ -12,6 +12,8 @@ Broadcaster_front/.editorconfig
 Broadcaster_front/.vscode/
 Broadcaster_front/node_modules
 
+*.mp4
+
 # ide
 .idea/
 Broadcaster_service/.idea/

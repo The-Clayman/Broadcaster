@@ -4,11 +4,12 @@ import React, { ChangeEvent, useState } from "react";
 
 export interface Props {
     toasterFunc: (text: string, type: 'success' | 'error') => void;
+    baseUrl: string;
 }
 
 
 
-const FileChooser = ({toasterFunc}: Props) => {
+const FileChooser = ({toasterFunc, baseUrl}: Props) => {
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         // Get the selected file from the event
@@ -18,7 +19,7 @@ const FileChooser = ({toasterFunc}: Props) => {
             var formData = new FormData();
             formData.append("file", file);
 
-            axios.post(`http://127.0.0.1:5000/broadcaster/v1/videos`, formData)
+            axios.post(`${baseUrl}/broadcaster/v1/videos`, formData)
                 .then(res => {
                     if (res.status === 200){
                         let toasterMessage = res.data.message != null ? res.data.message : "file uploaded successfully";

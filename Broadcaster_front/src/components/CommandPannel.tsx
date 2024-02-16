@@ -92,7 +92,7 @@ const CommandPannel = ({baseUrl, selectedRows, popToast}: Props) => {
         <button className={'btn btn-success'} onClick={() => playVideo(selectedRows)}>Play Video</button>
         <button className={'btn btn-warning'} onClick={() => stopVideo(selectedRows)}>Stop Video</button>
         <button className={'btn btn-danger'} onClick={() => deleteVideo(selectedRows)}>Delete Video</button>
-        <FileChooser toasterFunc={popToast}></FileChooser>
+        <FileChooser toasterFunc={popToast} baseUrl={baseUrl}></FileChooser>
     </div>;
 
 };
