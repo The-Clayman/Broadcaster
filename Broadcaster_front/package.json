@@ -11,6 +11,7 @@
     "react": "latest",
     "react-bootstrap": "^2.10.1",
     "react-dom": "latest",
+    "react-hot-toast": "^2.4.1",
     "typescript": "latest"
   },
   "description": "https://github.com/mui/material-ui/blob/v5.15.8/docs/data/material/components/table/DataTable.tsx",

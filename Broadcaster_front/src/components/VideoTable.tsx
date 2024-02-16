@@ -15,7 +15,7 @@ const columns: GridColDef[] = [
     { field: 'video_name', headerName: 'Video name', width: 400 },
     { field: 'status',headerName: 'Status', width: 400},
     { field: 'file_name', headerName: 'File Name', width: 400},
-    { field: 'rtsp', headerName: 'Rtsp url', width: 400}
+    { field: 'rtsp_url', headerName: 'Rtsp url', width: 400}
 ];
 
 export interface Props {
