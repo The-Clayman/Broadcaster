@@ -38,7 +38,7 @@ export default function App() {
         selectedRows={selectedRows}
         setSelectedRows={setselectedRows}
       ></VideoTable>
-      <HttpClientServie baseUrl={baseUrl} videos={videos} setVideos={setVideos} />
+      <HttpClientServie baseUrl={baseUrl} videos={videos} setVideos={setVideos} popToast={popToast} />
       <Toaster 
       toastOptions={{
         success: {

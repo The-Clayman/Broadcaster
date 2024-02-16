@@ -6,9 +6,10 @@ export interface Props {
     baseUrl: string;
     videos: Video[];
     setVideos: (rows:any[]) => void;
+    popToast: (text: string, type: 'success' | 'error') => void;
   }
 
-const HttpClientServie = ({baseUrl, videos, setVideos}: Props) => {
+const HttpClientServie = ({baseUrl, videos, setVideos, popToast}: Props) => {
 
     const getVideos = () => {
         console.log('getVideos called');
@@ -21,6 +22,7 @@ const HttpClientServie = ({baseUrl, videos, setVideos}: Props) => {
           
         }).catch((error) => {
           console.log(error);
+          popToast("error getting videos ["+error.message+"]", "error")
         });
       }
     
