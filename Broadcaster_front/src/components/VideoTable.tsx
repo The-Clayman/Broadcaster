@@ -21,9 +21,11 @@ const columns: GridColDef[] = [
 export interface Props {
     videos: Video[];
     setVideos: (rows:Video[]) => void;
+    selectedRows: any;
+    setSelectedRows: (rows:any) => void;
 }
 
-export default function VideoTable({videos, setVideos}: Props) {    
+export default function VideoTable({videos, setVideos, selectedRows, setSelectedRows}: Props) {    
 
     return (
         <Box sx={{
@@ -92,8 +94,13 @@ export default function VideoTable({videos, setVideos}: Props) {
 
                     pageSizeOptions={[5, 10]}
                     checkboxSelection
+
+                    onRowSelectionModelChange={(ids) => {
+                        console.log(ids);
+                        setSelectedRows(ids);
+                        console.log("table, slectedRows",selectedRows)
+                      }}
                 />
-                <HttpClientServie videos={videos} setVideos={setVideos} />
             </div>
         </Box>
     );

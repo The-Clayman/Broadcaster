@@ -3,18 +3,17 @@ import React, { useEffect } from "react";
 import { Video } from "../models/Video";
 
 export interface Props {
+    baseUrl: string;
     videos: Video[];
     setVideos: (rows:any[]) => void;
   }
 
-const HttpClientServie = ({videos, setVideos}: Props) => {
-
-    const baseUser: string = 'http://127.0.0.1:5000';
+const HttpClientServie = ({baseUrl, videos, setVideos}: Props) => {
 
     const getVideos = () => {
         console.log('getVideos called');
       
-        axios.get(`${baseUser}/broadcaster/v1/videos`)
+        axios.get(`${baseUrl}/broadcaster/v1/videos`)
         .then(res => {
           setVideos(res.data);
           console.log("res.data:",res.data);
