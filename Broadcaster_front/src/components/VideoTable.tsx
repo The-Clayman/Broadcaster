@@ -44,7 +44,7 @@ export default function VideoTable({videos, setVideos}: Props) {
           }}>
             <div>VideoTable element
                 <DataGrid
-                    rows={dummyRows}
+                    rows={videos}
                     columns={columns}
                     getRowId={(row) => row.video_name}
 
