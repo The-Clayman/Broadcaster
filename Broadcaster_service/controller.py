@@ -78,6 +78,7 @@ def add_video():
 
         elif file:
             filename = secure_filename(file.filename)
+            filename = filename.replace(" ", "_")
             file.save(f"{UPLOAD_DIR}/{filename}")
             message, response_code = broadcaster.add_new_video(filename)
     except Exception as e:
