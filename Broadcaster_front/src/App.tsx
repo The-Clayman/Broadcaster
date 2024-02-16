@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import VideoTable from './components/VideoTable';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -48,6 +49,7 @@ export default function App() {
         pageSizeOptions={[5, 10]}
         checkboxSelection
       />
+      <VideoTable></VideoTable>
     </div>
   );
 }
