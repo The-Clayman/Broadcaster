@@ -3,6 +3,11 @@
 &nbsp;
 &nbsp;
 
+![alt text](https://github.com/The-Clayman/Broadcaster/blob/migrate_frontend_to_react/Broadcaster.png)
+
+&nbsp;
+&nbsp;
+
 Broadcaster is a self-contained video streaming application designed to take short video files as input, transcode them, and generate RTSP streams on demand.
 Broadcaster was created for running video files as rtsp streams, on demand, for developing and testing video applications. 
 &nbsp;
