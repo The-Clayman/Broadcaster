@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
+import FileChooser from "./FileChooser";
 
 export interface Props {
     baseUrl: string;
@@ -73,10 +74,12 @@ const CommandPannel = ({baseUrl, selectedRows, popToast}: Props) => {
 
     
 
-    return <div style={{ width: '20%', justifyContent: 'space-between', display: 'flex', padding: "1em 0em"}}>
+    return <div style={{ width: '40%', justifyContent: 'space-between', display: 'flex', padding: "1em 0em"}}>
+        
         <button className={'btn btn-success'} onClick={() => playVideo(selectedRows)}>Play Video</button>
         <button className={'btn btn-warning'} onClick={() => stopVideo(selectedRows)}>Stop Video</button>
         <button className={'btn btn-danger'} onClick={() => deleteVideo(selectedRows)}>Delete Video</button>
+        <FileChooser toasterFunc={popToast}></FileChooser>
     </div>;
 
 };
