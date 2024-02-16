@@ -60,23 +60,25 @@ const CommandPannel = ({baseUrl, selectedRows, popToast}: Props) => {
 
     const deleteVideo = (selectedRows: any[]) => {
         if (selectedRows.length > 0) {
-            selectedRows.forEach(videoName => {
-                axios.delete(`${baseUrl}/broadcaster/v1/videos/${videoName}`)
-                .then(res => {
-                if (res.status === 200){
-                let toasterMessage = res.data.message != null ? res.data.message : "sent stop successufly";
-                popToast(toasterMessage, "success");
-                } else {
-                let toasterMessage = res.data.message != null ? res.data.message : "send stop failed";
-                popToast(toasterMessage, "error");
-                } 
-            })
-            .catch((error) => {
-                console.log(error);
-                let errorMessage = error.response.data.message != null ? error.response.data.message : "failed to send stop";
-                popToast(errorMessage, "error");
-            });
-            });;
+            if (confirm("Are you sure you want to delete the selected videos?\n\n"+selectedRows.join('\n'))) {
+                selectedRows.forEach(videoName => {
+                    axios.delete(`${baseUrl}/broadcaster/v1/videos/${videoName}`)
+                    .then(res => {
+                    if (res.status === 200){
+                    let toasterMessage = res.data.message != null ? res.data.message : "sent stop successufly";
+                    popToast(toasterMessage, "success");
+                    } else {
+                    let toasterMessage = res.data.message != null ? res.data.message : "send stop failed";
+                    popToast(toasterMessage, "error");
+                    } 
+                })
+                .catch((error) => {
+                    console.log(error);
+                    let errorMessage = error.response.data.message != null ? error.response.data.message : "failed to send stop";
+                    popToast(errorMessage, "error");
+                });
+                });;
+            }
         } else {
             popToast("no video were selected", "error");
         }
