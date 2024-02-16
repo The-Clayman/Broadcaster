@@ -1,4 +1,4 @@
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import React from "react";
 
 
@@ -21,6 +21,24 @@ export default function VideoTable() {
             rows={dummyRows}
             columns={columns}
             getRowId={(row) => row.video_name}
+            initialState={{
+                pagination: {
+                    paginationModel: { page: 0, pageSize: 10 },
+                },
+            }}
+            slots={{ toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
+              },
+            }}
+
+            disableColumnFilter
+            disableColumnSelector
+            disableDensitySelector
+
+            pageSizeOptions={[5, 10]}
+            checkboxSelection
         />
     </div>;
 }
