@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridCellParams, GridColDef, GridToolbar } from "@mui/x-data-grid";
-import React from "react";
+import React, { useState } from "react";
+import HttpClientServie from "./HttpClientSerive";
+import { Video } from "../models/Video";
 
 
 const dummyRows = [
@@ -14,10 +16,15 @@ const columns: GridColDef[] = [
     { field: 'status',headerName: 'Status', width: 400},
     { field: 'file_name', headerName: 'File Name', width: 400},
     { field: 'rtsp', headerName: 'Rtsp url', width: 400}
-  ];
+];
 
+export interface Props {
+    videos: Video[];
+    setVideos: (rows:Video[]) => void;
+}
 
-export default function VideoTable() {
+export default function VideoTable({videos, setVideos}: Props) {    
+
     return (
         <Box sx={{
             height: 600,
@@ -86,6 +93,7 @@ export default function VideoTable() {
                     pageSizeOptions={[5, 10]}
                     checkboxSelection
                 />
+                <HttpClientServie videos={videos} setVideos={setVideos} />
             </div>
         </Box>
     );

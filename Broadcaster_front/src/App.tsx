@@ -1,12 +1,18 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import VideoTable from './components/VideoTable';
+import { useState } from 'react';
+import { Video } from './models/Video';
 
 
 export default function App() {
+
+  const [videos, setVideos]  = useState<Video[]>([]);
+
+
   return (
     <div style={{ height: 400, width: '95%', margin: 'auto'}}>     
-      <VideoTable></VideoTable>
+      <VideoTable videos={videos} setVideos={setVideos}></VideoTable>
     </div>
   );
 }
