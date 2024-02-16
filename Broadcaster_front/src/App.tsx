@@ -29,7 +29,8 @@ export default function App() {
 
 
   return (
-    <div style={{ height: 400, width: '95%', margin: 'auto'}}>     
+    <div style={{ height: 400, width: '95%', margin: 'auto'}}>
+      <h1>Broadcaster</h1>     
       <CommandPannel baseUrl={baseUrl} selectedRows={selectedRows} popToast={popToast}></CommandPannel>
       <VideoTable 
         videos={videos} 
@@ -55,26 +56,3 @@ export default function App() {
     </div>
   );
 }
-/*
-
-export default function App() {
-  return (
-    <div style={{ height: 400, width: '100%' }}>
-
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-      />
-      
-      <VideoTable></VideoTable>
-    </div>
-  );
-}
-*/

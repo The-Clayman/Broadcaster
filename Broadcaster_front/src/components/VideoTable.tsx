@@ -44,7 +44,7 @@ export default function VideoTable({videos, setVideos, selectedRows, setSelected
               color: 'purple',
             },
           }}>
-            <div>VideoTable element
+            <div>Videos:
                 <DataGrid
                     rows={videos}
                     columns={columns}
@@ -64,6 +64,10 @@ export default function VideoTable({videos, setVideos, selectedRows, setSelected
                             }
                             case 'FAILED_TRANSCODING': { 
                                 res = 'red-text'
+                               break; 
+                            }
+                            case 'PROCESSING': { 
+                                res = 'purple-text'
                                break; 
                             }  
                             default: { 

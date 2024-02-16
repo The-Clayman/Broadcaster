@@ -9,13 +9,11 @@ export interface Props {
 
 
 const FileChooser = ({toasterFunc}: Props) => {
-    const [selectedFile, setSelectedFile] = useState<File>();
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         // Get the selected file from the event
         if (event.target.files){
             const file = event.target.files[0];
-            setSelectedFile(file);
 
             var formData = new FormData();
             formData.append("file", file);
