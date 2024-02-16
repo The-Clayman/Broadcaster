@@ -10,7 +10,7 @@ Broadcaster was created for running video files as rtsp streams, on demand, for 
 The application consist of 3 containers:
 1. rtsp-simple-server: rtsp server container.
 2. broadcaster_service : transcoding and straming application service container.
-3. broadcaster_frontend : boardcaster fronend
+3. broadcaster_front : boardcaster fronend
 
   *  *  *  *  *
 &nbsp;
@@ -45,11 +45,11 @@ For a distributed deployment (which is still recommended for all deployment scen
 >  2. The Rtsp-simple-server hostname/ip param.
 >     &nbsp;
 > 
-> 1 .Broadcaster_service hostname/ip param: update the `broadcasterServiceHost` value in the env file located at `./Broadcaster_frontend/environment/environment.ts`:
+> 1 .Broadcaster_service hostname/ip param: update the `broadcaseterBaseUrl` value in the josn file located at `./Broadcaster_front/src/properties.json`:
 > 
->   ```ts
-> export const environment = {
->     broadcasterServiceHost: 'http://<broadcaster_serivce ip_or_host>:5000',
+>   ```json
+>   {
+>     "broadcaseterBaseUrl": "http://<broadcaster_service_ip_or_hostname>:5000"
 >   }
 >  ```
 >
@@ -71,9 +71,9 @@ For a distributed deployment (which is still recommended for all deployment scen
   ```bash
   sudo docker run -d --name broadcaster --network=host broadcaster_service
   ```
-3. Run the broadcaseter frontend:
+3. Run the broadcaseter front:
   ```bash
-  sudo docker run -d --name broadcaster -v videos:/home/myuser/code/videos --network=host broadcaster_service
+  sudo docker run -d --name broadcaster -v videos:/home/myuser/code/videos --network=host broadcaster_service_dev
   ```
 Appliaction should be available on:
 [http://localhost:4200/](http://localhost:4200/)
