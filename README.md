@@ -3,7 +3,7 @@
 &nbsp;
 &nbsp;
 
-![alt text](https://github.com/The-Clayman/Broadcaster/blob/migrate_frontend_to_react/Broadcaster.png)
+![alt text](https://drive.google.com/uc?id=102u9NoZyCICrLPYzGYA1BpJrH5L0VJHl&export=download)
 
 &nbsp;
 &nbsp;
