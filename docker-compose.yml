@@ -11,7 +11,7 @@ services:
 
 
   broadcaster_service:
-    image: broadcaster_service
+    image: theclayman/broadcaster_service
     container_name: broadcaster_service
     ports:
       - "5000:5000"
@@ -22,7 +22,7 @@ services:
       - broadcaster_network
 
   broadcaster_front:
-    image: broadcaster_front_dev
+    image: theclayman/broadcaster_front
     container_name: broadcaster_front
     ports:
       - "3000:3000"
@@ -37,3 +37,4 @@ volumes:
 networks:
   broadcaster_network:
     driver: bridge
+
