@@ -38,17 +38,9 @@ const FileChooser = ({toasterFunc, baseUrl}: Props) => {
         };
     }
 
-    const fileChooserStyle = {
-        border: '1px solid #ccc',
-        display: 'inline-block',
-        padding: '6px 12px',
-        cursor:'pointer'
-    }
-
-
     return (    
     <div>
-        <label style={fileChooserStyle}>
+        <label className={'btn btn-secondary'}>
              Upload fIle
             <input type="file" onChange={handleFileChange} style={{display: 'none'}}  />
         </label>
