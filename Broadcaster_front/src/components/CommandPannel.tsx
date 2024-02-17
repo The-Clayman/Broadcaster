@@ -87,7 +87,7 @@ const CommandPannel = ({baseUrl, selectedRows, popToast}: Props) => {
 
     
 
-    return <div style={{ width: '40%', justifyContent: 'space-between', display: 'flex', padding: "1em 0em"}}>
+    return <div style={{ width: '27%', justifyContent: 'space-between', display: 'flex', padding: "1em 0em"}}>
         
         <button className={'btn btn-success'} onClick={() => playVideo(selectedRows)}>Play Video</button>
         <button className={'btn btn-warning'} onClick={() => stopVideo(selectedRows)}>Stop Video</button>
