@@ -34,12 +34,12 @@ export default function App() {
     <div style={{ height: 400, width: '95%', margin: 'auto'}}>
       <h1>Broadcaster</h1>     
       <CommandPannel baseUrl={baseUrl} selectedRows={selectedRows} popToast={popToast}></CommandPannel>
-      <VideoTable 
-        videos={videos} 
-        setVideos={setVideos}
-        selectedRows={selectedRows}
-        setSelectedRows={setselectedRows}
-      ></VideoTable>
+        <VideoTable 
+          videos={videos} 
+          setVideos={setVideos}
+          selectedRows={selectedRows}
+          setSelectedRows={setselectedRows}
+        ></VideoTable>
       <Footer></Footer>
       <HttpClientServie baseUrl={baseUrl} videos={videos} setVideos={setVideos} popToast={popToast} />
       <Toaster 
