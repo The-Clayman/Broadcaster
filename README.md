@@ -15,33 +15,20 @@ Broadcaster was created for running video files as rtsp streams, on demand, for 
 The application consist of 3 containers:
 1. rtsp-simple-server: rtsp server container.
 2. broadcaster_service : transcoding and straming application service container.
+   - https://hub.docker.com/repository/docker/theclayman/broadcaster_service/general
 3. broadcaster_front : boardcaster fronend
-
+   - https://hub.docker.com/repository/docker/theclayman/broadcaster_front/general
   *  *  *  *  *
 &nbsp;
 &nbsp;
 
-## How to build:
-
-Build application images:
-```bash
-./build_images.sh
-```
-&nbsp;
-
-
 ## How to run the application:
-There are 2 ways to run the application:
-&nbsp;
+There are 2 ways to run the application: 
 
-#### 1.Docker compose (recommanded):
-  ```bash
-  sudo docker-compose up -d
-  ```
-Appliaction should be available on:
-[http://localhost:4200/](http://localhost:4200/)
-&nbsp;
-&nbsp;
+1. Docker compose (recommanded)
+2. Docker run commands.
+
+For both method, plase follow the following prerequisite:
 &nbsp;
 
 > **_NOTE:_**
@@ -54,41 +41,103 @@ For a distributed deployment (which is still recommended for all deployment scen
 > 
 >   ```json
 >   {
->     "broadcaseterBaseUrl": "http://<broadcaster_service_ip_or_hostname>:5000"
+>     "broadcaseterBaseUrl": "http://<broadcaster_service_ip_or_hostname>:5000/"
 >   }
 >  ```
 >
 > 2. The Rtsp-simple-server hostname/ip param: update the `rtsp_url_address` value in the conif file located at `./Broadcaster_service/config.json`:
 >
 >  ```json
->{
->  "rtsp_url_address": "rtsp://<rtsp-server ips or host>:8554/",
->}
+>  {
+>    "rtsp_url_address": "rtsp://<rtsp-server ips or host>:8554/",
+>  }
 >  ```
+&nbsp;
+&nbsp;
+&nbsp;
+
+
+#### 1.Docker compose (recommanded):
+1. Run:
+  ```bash
+  sudo docker-compose up -d
+  ```
+Appliaction ui should be available on:
+[http://localhost:3000/](http://localhost:3000/)
+
+2. To remove the deployment, run:
+  ```bash
+  sudo docker-compose down
+  ```
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+
 
 &nbsp;
 #### 2.Docekr run commands
-1. Run the rtsp-server container:
+
+1. Create docker network:
   ```bash
-  sudo docker run -d --rm --name rtsp_server --network=host aler9/rtsp-simple-server`
+  sudo docker network create -d bridge broadcaster_network
   ```
-2. Run the broadcaster service:
+
+
+2. Run the rtsp-server container:
   ```bash
-  sudo docker run -d --name broadcaster --network=host broadcaster_service
+  sudo docker run -d --rm \
+    --name rtsp_server \
+    --network=broadcaster_network \
+    -p 8554:8554 \
+    aler9/rtsp-simple-server
   ```
-3. Run the broadcaseter front:
+3. Run the broadcaster service:
   ```bash
-  sudo docker run -d --name broadcaster -v videos:/home/myuser/code/videos --network=host broadcaster_service_dev
+  sudo docker run -d \
+    --name broadcaster_service \
+    -v videos:/home/myuser/code/videos \
+    -v $(pwd)/Broadcaster_service/config.json:/home/myuser/code/config.json \
+    --network=broadcaster_network \
+    -p 5000:5000 \
+    theclayman/broadcaster_service
   ```
-Appliaction should be available on:
-[http://localhost:4200/](http://localhost:4200/)
+4. Run the broadcaseter front:
+  ```bash
+  sudo docker run -d \
+    --name broadcaster_front \
+    -v $(pwd)/Broadcaster_front/src/properties.json:/app/src/properties.json \
+    --network=broadcaster_network \
+    -p 3000:3000 \
+    theclayman/broadcaster_front
+  ```
+Appliaction ui should be available on:
+[http://localhost:3000/](http://localhost:3000/)
+
+5. To remove containers and network, run:
+  ```bash
+  sudo docker network rm broadcaster_network
+  ```
+  ```bash
+  sudo docker rm -f broadcaster_front broadcaster_service rtsp_server
+  ```
 
 &nbsp;
   *  *  *  *  *
 
+# Dev
+
+## How to build - Dev:
+
+Build application images:
+```bash
+./build_images.sh
+```
+
 &nbsp; 
 &nbsp;
-# API - Dev
+## API - Dev
 &nbsp;
 &nbsp;
 ### Get all videos details
