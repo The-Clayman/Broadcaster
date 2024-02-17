@@ -3,7 +3,7 @@
 &nbsp;
 &nbsp;
 
-![alt text](https://drive.google.com/uc?id=102u9NoZyCICrLPYzGYA1BpJrH5L0VJHl&export=download)
+![alt text](https://drive.google.com/uc?id=1cGlHIU_E1iPjOlrf99KmsZD3u47JMrrO&export=download)
 
 &nbsp;
 &nbsp;
