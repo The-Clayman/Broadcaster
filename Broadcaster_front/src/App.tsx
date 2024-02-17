@@ -7,6 +7,7 @@ import HttpClientServie from './components/HttpClientSerive';
 import CommandPannel from './components/CommandPannel';
 import toast, { Toaster } from 'react-hot-toast';
 import properties from './properties.json'
+import Footer from './components/Fotter';
 
 
 const baseUrl = properties.broadcaseterBaseUrl;
@@ -39,6 +40,7 @@ export default function App() {
         selectedRows={selectedRows}
         setSelectedRows={setselectedRows}
       ></VideoTable>
+      <Footer></Footer>
       <HttpClientServie baseUrl={baseUrl} videos={videos} setVideos={setVideos} popToast={popToast} />
       <Toaster 
       toastOptions={{
