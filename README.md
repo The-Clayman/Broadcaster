@@ -5,12 +5,15 @@
 
 ![alt text](https://drive.google.com/uc?id=1cGlHIU_E1iPjOlrf99KmsZD3u47JMrrO&export=download)
 
+
 &nbsp;
 &nbsp;
 
 Broadcaster is a self-contained video streaming application designed to take short video files as input, transcode them, and generate RTSP streams on demand.
 Broadcaster was created for running video files as rtsp streams, on demand, for developing and testing video applications. 
 &nbsp;
+
+![alt text](https://drive.google.com/uc?id=1TQ2VC0pgMt7adyxpKDeGA5DXSXKU5R2c&export=download)
 
 The application consist of 3 containers:
 1. rtsp-simple-server: rtsp server container.
@@ -28,7 +31,7 @@ There are 2 ways to run the application:
 1. Docker compose (recommanded)
 2. Docker run commands.
 
-For both method, plase follow the following prerequisite:
+For both methods, plase follow the following prerequisite:
 &nbsp;
 
 > **_NOTE:_**
