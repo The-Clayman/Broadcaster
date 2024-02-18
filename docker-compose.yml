@@ -11,23 +11,24 @@ services:
 
 
   broadcaster_service:
-    image: broadcaster_service
+    image: theclayman/broadcaster_service
     container_name: broadcaster_service
     ports:
       - "5000:5000"
     volumes:
       - videos:/home/myuser/code/videos
-      - ./Broadcaster_service/config.json:/home/myuser/code/config.json
+    environment:
+            - "rtsp_url_address=rtsp://${HOST_IP}:8554/"
     networks:
       - broadcaster_network
 
-  broadcaster_frontend:
-    image: broadcaster_frontend
-    container_name: broadcaster_frontend
+  broadcaster_front:
+    image: theclayman/broadcaster_front
+    container_name: broadcaster_front
     ports:
-      - "4200:4200"
-    volumes:
-      - ./Broadcaster_frontend/environment/environment.ts:/usr/src/app/environment/environment.ts
+      - "3000:3000"
+    environment:
+      - "REACT_APP_BASE_URL=http://${HOST_IP}:5000/"
     networks:
       - broadcaster_network
 
@@ -37,3 +38,4 @@ volumes:
 networks:
   broadcaster_network:
     driver: bridge
+

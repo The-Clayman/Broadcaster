@@ -42,7 +42,11 @@ class BroadcasterApp:
 
         video = self.get_video(video_name)
         if video:
-            self.dao_service.delete_video(video_name)
+            if video.get('status') not in ["PLAYING"]:
+                self.dao_service.delete_video(video_name)
+            else:
+                response_code = 403
+                response_body = f"[{video_name=}] is in status PLAYING, delete skipped"
         else:
             response_code = 409
             response_body = f"[{video_name=}] not found, delete skipped"

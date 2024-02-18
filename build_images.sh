@@ -16,13 +16,12 @@ cd Broadcaster_service
 echo ""
 cd ..
 
-echo "----broadcasetr frontend"
-cd Broadcaster_frontend
-./build.sh
+echo "----broadcasetr front"
+cd Broadcaster_front
+./build_dev.sh
 echo ""
 cd ..
 
 echo "$0 done, $(date), time elapsed:[$SECONDS]"
 echo ""
-
 

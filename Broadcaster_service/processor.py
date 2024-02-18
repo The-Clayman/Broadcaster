@@ -72,7 +72,7 @@ class Processor(Thread):
                 self.stop_video(video_name)
                 status = self.dau_service.get_video_status(video_name)
             if ts_file_name and status and status in ['READY', "FAILED_PLAYING"]:
-                rtsp_url_prefix = self.dau_service.config.get('rtsp_url_address') if self.dau_service.config.get('rtsp_url_address') else 'rtsp://localhost:8554/'
+                rtsp_url_prefix = self.dau_service.config.get('rtsp_url_address')
                 rtsp_url = f'{rtsp_url_prefix}{video_name}'
                 rtsp_command_url = f'{RTSP_SERVER_URL}{video_name}'
                 #default_ffmpeg_config_command = f"ffmpeg -re -stream_loop -1 -i {VIDEO_DIR}/{video_name}/{ts_file_name} -vcodec copy -an -f rtsp {rtsp_url}"

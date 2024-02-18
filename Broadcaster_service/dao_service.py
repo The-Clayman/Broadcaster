@@ -16,10 +16,18 @@ class DaoService:
         self.config = None
         self.init_dau()
 
+    def init_config(self):
+        with open('config.json', 'r') as f:
+            self.config = json.load(f)
+            self.config['rtsp_url_address'] = self.config.get('rtsp_url_address') if self.config.get(
+                'rtsp_url_address') else 'rtsp://localhost:8554/'
+            self.config['rtsp_url_address'] = os.getenv("rtsp_url_address", self.config.get('rtsp_url_address'))
+
+
     def init_dau(self):
         try:
-            with open('config.json', 'r') as f:
-                self.config = json.load(f)
+            self.init_config()
+
 
             do_load = False if self.config.get('load_on_startup') and self.config.get('load_on_startup').lower() == 'false' else True
             if do_load:
