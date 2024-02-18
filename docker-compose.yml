@@ -18,7 +18,7 @@ services:
     volumes:
       - videos:/home/myuser/code/videos
     environment:
-            - "rtsp_url_address=rtsp://{HOST_IP}:8554/"
+            - "rtsp_url_address=rtsp://${HOST_IP}:8554/"
     networks:
       - broadcaster_network
 
@@ -28,7 +28,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - "REACT_APP_BASE_URL=http://{HOST_IP}:5000/"
+      - "REACT_APP_BASE_URL=http://${HOST_IP}:5000/"
     networks:
       - broadcaster_network
 
