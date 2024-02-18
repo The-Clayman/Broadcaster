@@ -34,27 +34,7 @@ There are 2 ways to run the application:
 For both methods, plase follow the following prerequisite:
 &nbsp;
 
-> **_NOTE:_**
-For a distributed deployment (which is still recommended for all deployment scenarios), it is advisable to configure:
->  1. The Broadcaster_service hostname/ip param.
->  2. The Rtsp-simple-server hostname/ip param.
->     &nbsp;
-> 
-> 1 .Broadcaster_service hostname/ip param: update the `broadcaseterBaseUrl` value in the josn file located at `./Broadcaster_front/src/properties.json`:
-> 
->   ```json
->   {
->     "broadcaseterBaseUrl": "http://<broadcaster_service_ip_or_hostname>:5000/"
->   }
->  ```
->
-> 2. The Rtsp-simple-server hostname/ip param: update the `rtsp_url_address` value in the conif file located at `./Broadcaster_service/config.json`:
->
->  ```json
->  {
->    "rtsp_url_address": "rtsp://<rtsp-server ips or host>:8554/",
->  }
->  ```
+
 &nbsp;
 &nbsp;
 &nbsp;
@@ -63,8 +43,22 @@ For a distributed deployment (which is still recommended for all deployment scen
 #### 1.Docker compose (recommanded):
 1. Run:
   ```bash
-  sudo docker-compose up -d
+  sudo HOST_IP="<machine_host_or_ip>" docker-compose up -d
   ```
+  e.g `sudo HOST_IP="192.168.1.95" docker-compose up -d`
+&nbsp;
+   >  **_NOTE:_**
+   >   Artenitivly, you can replace the 2 accurences of `${HOST_IP}` on you docker file with <machine_host_or_ip>:
+   >  1. Edit docker compose file and replace `${HOST_IP}` accurences (with the dollar sign and curly brackets)
+   >     i.e  `- "rtsp_url_address=rtsp://10.0.0.95:8554`
+   >  3. Run the docker command as folows:
+   >    ```bash
+   >      sudo docker-compose up -d
+   >    ``` 
+   > &nbsp;
+   >
+> 
+
 Appliaction ui should be available on:
 [http://localhost:3000/](http://localhost:3000/)
 
@@ -82,13 +76,19 @@ Appliaction ui should be available on:
 &nbsp;
 #### 2.Docekr run commands
 
-1. Create docker network:
+1. Create env param with machine host name or ip:
+  ```bash
+  export HOST_IP="10.0.0.95"
+  ```
+  e.g: export `HOST_IP="10.0.0.95"`
+  
+2. Create docker network:
   ```bash
   sudo docker network create -d bridge broadcaster_network
   ```
 
 
-2. Run the rtsp-server container:
+3. Run the rtsp-server container:
   ```bash
   sudo docker run -d --rm \
     --name rtsp_server \
@@ -96,21 +96,23 @@ Appliaction ui should be available on:
     -p 8554:8554 \
     aler9/rtsp-simple-server
   ```
-3. Run the broadcaster service:
+4. Run the broadcaster service:
+   * replace the <machine_host_or_ip> and run:
   ```bash
   sudo docker run -d \
     --name broadcaster_service \
     -v videos:/home/myuser/code/videos \
-    -v $(pwd)/Broadcaster_service/config.json:/home/myuser/code/config.json \
+    -e rtsp_url_address=rtsp://${HOST_IP}:8554/ \
     --network=broadcaster_network \
     -p 5000:5000 \
     theclayman/broadcaster_service
   ```
-4. Run the broadcaseter front:
+5. Run the broadcaseter front:
+  * replace the <machine_host_or_ip> and run:
   ```bash
   sudo docker run -d \
     --name broadcaster_front \
-    -v $(pwd)/Broadcaster_front/src/properties.json:/app/src/properties.json \
+    -e REACT_APP_BASE_URL=http://${HOST_IP}:5000/ \
     --network=broadcaster_network \
     -p 3000:3000 \
     theclayman/broadcaster_front
@@ -118,7 +120,7 @@ Appliaction ui should be available on:
 Appliaction ui should be available on:
 [http://localhost:3000/](http://localhost:3000/)
 
-5. To remove containers and network, run:
+6. To remove containers and network, run:
   ```bash
   sudo docker network rm broadcaster_network
   ```
