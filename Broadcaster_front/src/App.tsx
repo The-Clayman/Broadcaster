@@ -6,11 +6,10 @@ import { Video } from './models/Video';
 import HttpClientServie from './components/HttpClientSerive';
 import CommandPannel from './components/CommandPannel';
 import toast, { Toaster } from 'react-hot-toast';
-import properties from './properties.json'
 import Footer from './components/Fotter';
 
 
-const baseUrl = properties.broadcaseterBaseUrl;
+const baseUrl:string = process.env.REACT_APP_BASE_URL || "http://127.0.0.1:5000";
 
 
 export default function App() {
