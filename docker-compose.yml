@@ -17,7 +17,8 @@ services:
       - "5000:5000"
     volumes:
       - videos:/home/myuser/code/videos
-      - ./Broadcaster_service/config.json:/home/myuser/code/config.json
+    environment:
+            - "rtsp_url_address=rtsp://{HOST_IP}:8554/"
     networks:
       - broadcaster_network
 
@@ -26,8 +27,8 @@ services:
     container_name: broadcaster_front
     ports:
       - "3000:3000"
-    volumes:
-      - ./Broadcaster_front/src/properties.json:/app/src/properties.json
+    environment:
+      - "REACT_APP_BASE_URL=http://{HOST_IP}:5000/"
     networks:
       - broadcaster_network
 
