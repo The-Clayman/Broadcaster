@@ -18,9 +18,9 @@ Broadcaster was created for running video files as rtsp streams, on demand, for 
 The application consist of 3 containers:
 1. rtsp-simple-server: rtsp server container.
 2. broadcaster_service : transcoding and straming application service container.
-   - https://hub.docker.com/repository/docker/theclayman/broadcaster_service/general
+   - https://hub.docker.com/repository/docker/theclayman/broadcaster_service/
 3. broadcaster_front : broadcaster frontend
-   - https://hub.docker.com/repository/docker/theclayman/broadcaster_front/general
+   - https://hub.docker.com/repository/docker/theclayman/broadcaster_front/
   *  *  *  *  *
 &nbsp;
 &nbsp;
