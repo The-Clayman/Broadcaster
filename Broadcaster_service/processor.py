@@ -69,11 +69,11 @@ class Processor(Thread):
                 self.stop_video(video_name)
                 status = self.dau_service.get_video_status(video_name)
             if ts_file_name and status and status in ['READY', "FAILED_PLAYING"]:
-                # rtsp_url is used to compose the rtsp url string sent back to user, and ideally should include rtsp-server machine's external ip.
+                # rtsp_url is used to compose the rtsp url string sent back to end user, and ideally should contain rtsp-server machine's external ip.
                 rtsp_url_prefix = self.dau_service.config.get('rtsp_url_address') if self.dau_service.config.get('rtsp_url_address') else 'rtsp://localhost:8554/'
                 rtsp_url = f'{rtsp_url_prefix}{video_name}'
 
-                # rtsp_server_url consist is used for ffmpeg stream command, and should point to the rtsp-simple-server service hostname,
+                # rtsp_server_url is used for ffmpeg stream command, and should point to the rtsp-simple-server service hostname,
                 # defined on the docker-compose file by default (rtsp://rtsp_server:8554/).
                 # for dev purposes, rtsp://localhost:8554/ should do.
                 rtsp_server_url = self.dau_service.config.get('rtsp_server_url') if self.dau_service.config.get('rtsp_server_url') else 'rtsp://localhost:8554/'
