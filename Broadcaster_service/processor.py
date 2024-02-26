@@ -16,9 +16,6 @@ ALLOWED_EXTENSIONS = {'txt'}
 DEFAULT_FFMPEG_STREAM_COMMAND = "ffmpeg -re -stream_loop -1 -i {VIDEO_DIR}/{video_name}/{ts_file_name} -vcodec copy -an -f rtsp {rtsp_command_url}"
 DEFAULT_FFMPEG_TRANSCODE_COMMAND = "ffmpeg -y -i {VIDEO_DIR}/{video_name}/{video_file_name} -c copy -an {VIDEO_DIR}/{video_name}/{ts_file_name}"
 
-# RTSP_SERVER_URL consist of the service hostname defined on the docker-compose file.
-# this param will be used for the rtsp stream command
-RTSP_SERVER_URL = "rtsp://rtsp_server:8554/"
 #short command : ffmpeg -i video1.mp4 -c copy -an video2.ts
 # ffmpeg -i video1.mp4 -c copy -an video2.ts
 
@@ -72,9 +69,15 @@ class Processor(Thread):
                 self.stop_video(video_name)
                 status = self.dau_service.get_video_status(video_name)
             if ts_file_name and status and status in ['READY', "FAILED_PLAYING"]:
-                rtsp_url_prefix = self.dau_service.config.get('rtsp_url_address')
+                # rtsp_url is used to compose the rtsp url string sent back to user, and ideally should include rtsp-server machine's external ip.
+                rtsp_url_prefix = self.dau_service.config.get('rtsp_url_address') if self.dau_service.config.get('rtsp_url_address') else 'rtsp://localhost:8554/'
                 rtsp_url = f'{rtsp_url_prefix}{video_name}'
-                rtsp_command_url = f'{RTSP_SERVER_URL}{video_name}'
+
+                # rtsp_server_url consist is used for ffmpeg stream command, and should point to the rtsp-simple-server service hostname,
+                # defined on the docker-compose file by default (rtsp://rtsp_server:8554/).
+                # for dev purposes, rtsp://localhost:8554/ should do.
+                rtsp_server_url = self.dau_service.config.get('rtsp_server_url') if self.dau_service.config.get('rtsp_server_url') else 'rtsp://localhost:8554/'
+                rtsp_command_url = f'{rtsp_server_url}{video_name}'
                 #default_ffmpeg_config_command = f"ffmpeg -re -stream_loop -1 -i {VIDEO_DIR}/{video_name}/{ts_file_name} -vcodec copy -an -f rtsp {rtsp_url}"
                 ffmpeg_stream_command = self.dau_service.config.get("ffmpeg_stream_command")
                 ffmpeg_stream_command = ffmpeg_stream_command if ffmpeg_stream_command != None else DEFAULT_FFMPEG_STREAM_COMMAND

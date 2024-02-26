@@ -19,9 +19,16 @@ class DaoService:
     def init_config(self):
         with open('config.json', 'r') as f:
             self.config = json.load(f)
-            self.config['rtsp_url_address'] = self.config.get('rtsp_url_address') if self.config.get(
-                'rtsp_url_address') else 'rtsp://localhost:8554/'
-            self.config['rtsp_url_address'] = os.getenv("rtsp_url_address", self.config.get('rtsp_url_address'))
+
+        self.logger.info(f"Config file config.json loaded:\n{self.config}")
+        config_copy = self.config.copy()
+        # override with env params if exists.
+        for prop, loaded_value in config_copy.items():
+            self.config[prop] = os.getenv(prop, loaded_value)
+
+        self.logger.info(f"Config after env override:\n{self.config}")
+
+
 
 
     def init_dau(self):
