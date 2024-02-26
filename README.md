@@ -19,7 +19,7 @@ The application consist of 3 containers:
 1. rtsp-simple-server: rtsp server container.
 2. broadcaster_service : transcoding and straming application service container.
    - https://hub.docker.com/repository/docker/theclayman/broadcaster_service/general
-3. broadcaster_front : boardcaster fronend
+3. broadcaster_front : broadcaster frontend
    - https://hub.docker.com/repository/docker/theclayman/broadcaster_front/general
   *  *  *  *  *
 &nbsp;
@@ -28,10 +28,10 @@ The application consist of 3 containers:
 ## How to run the application:
 There are 2 ways to run the application: 
 
-1. Docker compose (recommanded)
+1. Docker compose (recommended)
 2. Docker run commands.
 
-For both methods, plase follow the following prerequisite:
+For both methods, please follow the following prerequisite:
 &nbsp;
 
 
@@ -49,7 +49,7 @@ For both methods, plase follow the following prerequisite:
 &nbsp;
    >  **_NOTE:_**
    >   Artenitivly, you can replace the 2 accurences of `${HOST_IP}` on you docker file with <machine_host_or_ip>:
-   >  1. Edit docker compose file and replace `${HOST_IP}` accurences (with the dollar sign and curly brackets)
+   >  1. Edit docker compose file and replace `${HOST_IP}` occurrences (with the dollar sign and curly brackets)
    >     i.e  `- "rtsp_url_address=rtsp://10.0.0.95:8554`
    >  3. Run the docker command as folows:
    >    ```bash
@@ -59,7 +59,7 @@ For both methods, plase follow the following prerequisite:
    >
 > 
 
-Appliaction ui should be available on:
+Application ui should be available on:
 [http://localhost:3000/](http://localhost:3000/)
 
 2. To remove the deployment, run:
@@ -74,7 +74,7 @@ Appliaction ui should be available on:
 
 
 &nbsp;
-#### 2.Docekr run commands
+#### 2.Docker run commands
 
 1. Create env param with machine host name or ip:
   ```bash
@@ -107,7 +107,7 @@ Appliaction ui should be available on:
     -p 5000:5000 \
     theclayman/broadcaster_service
   ```
-5. Run the broadcaseter front:
+5. Run the broadcaster front:
   * replace the <machine_host_or_ip> and run:
   ```bash
   sudo docker run -d \
@@ -117,7 +117,7 @@ Appliaction ui should be available on:
     -p 3000:3000 \
     theclayman/broadcaster_front
   ```
-Appliaction ui should be available on:
+Application ui should be available on:
 [http://localhost:3000/](http://localhost:3000/)
 
 6. To remove containers and network, run:
@@ -141,6 +141,6 @@ Build application images:
 ```
 
 
-* See Broadcaster API readme on ./Broardcaster_service/README.md
+* See Broadcaster API readme on ./Broadcaster_service/README.md
 
 
