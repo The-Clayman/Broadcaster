@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: cd ./Broadcaster_service docker build . --file Dockerfile --tag theclayman/broadcaster_service:$(date +%s)
+      run: cd ./Broadcaster_service docker && build . --file Dockerfile --tag theclayman/broadcaster_service:$(date +%s)
