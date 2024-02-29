@@ -14,5 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Retrieve version
+      run: |
+        echo "TAG_NAME=$(cat Broadcaster_front/src/properties.json | grep version | grep -o '[0-9]\.[0-9]\.[0-9]')" >> $GITHUB_OUTPUT
+      id: version
     - name: Build the Docker image
-      run: cd ./Broadcaster_service && docker build . --file Dockerfile --tag theclayman/broadcaster_service:$(date +%s)
+      run: cd ./Broadcaster_service && docker build . --file Dockerfile --tag theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
