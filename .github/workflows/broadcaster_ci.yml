@@ -37,7 +37,7 @@ jobs:
         cd ./Broadcaster_front
         docker build . --file Dockerfile.dev --tag broadcaster_front
         docker tag broadcaster_front theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
-        docker tag broadcaster_service theclayman/broadcaster_front
+        docker tag broadcaster_front theclayman/broadcaster_front
       
     - name: Log into registry
       if: github.event_name != 'pull_request'
