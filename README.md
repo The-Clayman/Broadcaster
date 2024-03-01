@@ -3,6 +3,8 @@
 &nbsp;
 &nbsp;
 
+[![Braodcaster CI](https://github.com/The-Clayman/Broadcaster/actions/workflows/broadcaster_ci.yml/badge.svg)](https://github.com/The-Clayman/Broadcaster/actions/workflows/broadcaster_ci.yml)
+
 ![alt text](https://drive.google.com/uc?id=1cGlHIU_E1iPjOlrf99KmsZD3u47JMrrO&export=download)
 
 
