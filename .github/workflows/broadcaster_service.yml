@@ -20,3 +20,12 @@ jobs:
       id: version
     - name: Build the Docker image
       run: cd ./Broadcaster_service && docker build . --file Dockerfile --tag theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+    - name: Log into registry
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+      with:
+        registry: docker.io
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
