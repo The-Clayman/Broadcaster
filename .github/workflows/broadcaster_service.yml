@@ -49,5 +49,8 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-   # - name: Push images to Dockerhub
-   #   run: docker push theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+    - name: Push images to Dockerhub
+      run: |
+        docker push theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+        docker push theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+      #  docker push theclayman/broadcaster_front
