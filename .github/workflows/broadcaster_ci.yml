@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Braodcaster CI
 
 on:
   push:
@@ -18,6 +18,7 @@ jobs:
       run: |
         echo "TAG_NAME=$(cat Broadcaster_front/src/properties.json | grep version | grep -o '[0-9]\.[0-9]\.[0-9]')" >> $GITHUB_OUTPUT
       id: version
+      
     - name: Set version to prop file
       run : |
         sed -i 's\${{ steps.version.outputs.TAG_NAME }}\${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}\g' Broadcaster_front/src/properties.json
@@ -38,10 +39,6 @@ jobs:
         docker tag broadcaster_front theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
       #  docker tag broadcaster_service theclayman/broadcaster_front
       
-      # Login against a Docker registry except on PR
-      # https://github.com/docker/login-action
-      # Login against a Docker registry except on PR
-      # https://github.com/docker/login-action
     - name: Log into registry
       if: github.event_name != 'pull_request'
       uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
@@ -49,7 +46,9 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
     - name: Push images to Dockerhub
+      if: github.event_name != 'pull_request'
       run: |
         docker push theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
         docker push theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
