@@ -26,12 +26,18 @@ jobs:
         
     - name: Build Broadcaster_serivce Docker image
       run: |
-        cd ./Broadcaster_service && docker build . --file Dockerfile --tag broadcaster_service
+        cd ./Broadcaster_service
+        docker build . --file Dockerfile --tag broadcaster_service
         docker tag broadcaster_service theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
-        docker tag broadcaster_service theclayman/broadcaster_service
+     #   docker tag broadcaster_service theclayman/broadcaster_service
 
-   # - name: Build Broadcaster_front Docker image
-   #   run: cd ./Broadcaster_front && docker build . --file Dockerfile.dev --tag theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+    - name: Build Broadcaster_front Docker image
+      run: | 
+        cd ./Broadcaster_front
+        docker build . --file Dockerfile.dev --tag broadcaster_front
+        docker tag broadcaster_front theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+      #  docker tag broadcaster_service theclayman/broadcaster_front
+      
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       # Login against a Docker registry except on PR
@@ -43,5 +49,5 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-   # - name: Push to Dockerhub
+   # - name: Push images to Dockerhub
    #   run: docker push theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
