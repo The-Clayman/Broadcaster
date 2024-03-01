@@ -1,0 +1,56 @@
+name: Braodcaster CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Retrieve version
+      run: |
+        echo "TAG_NAME=$(cat Broadcaster_front/src/properties.json | grep version | grep -o '[0-9]\.[0-9]\.[0-9]')" >> $GITHUB_OUTPUT
+      id: version
+      
+    - name: Set version to prop file
+      run : |
+        sed -i 's\${{ steps.version.outputs.TAG_NAME }}\${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}\g' Broadcaster_front/src/properties.json
+        echo "version number:"
+        cat Broadcaster_front/src/properties.json
+        
+    - name: Build Broadcaster_serivce Docker image
+      run: |
+        cd ./Broadcaster_service
+        docker build . --file Dockerfile --tag broadcaster_service
+        docker tag broadcaster_service theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+        docker tag broadcaster_service theclayman/broadcaster_service
+
+    - name: Build Broadcaster_front Docker image
+      run: | 
+        cd ./Broadcaster_front
+        docker build . --file Dockerfile.dev --tag broadcaster_front
+        docker tag broadcaster_front theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+        docker tag broadcaster_service theclayman/broadcaster_front
+      
+    - name: Log into registry
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+      with:
+        registry: docker.io
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+    - name: Push images to Dockerhub
+      if: github.event_name != 'pull_request'
+      run: |
+        docker push theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+        docker push theclayman/broadcaster_service
+        docker push theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+        docker push theclayman/broadcaster_front
