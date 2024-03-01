@@ -2,9 +2,9 @@ name: Braodcaster CI
 
 on:
   push:
-    branches: [ "github_actions" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "github_actions" ]
+    branches: [ "main" ]
 
 jobs:
 
@@ -30,14 +30,14 @@ jobs:
         cd ./Broadcaster_service
         docker build . --file Dockerfile --tag broadcaster_service
         docker tag broadcaster_service theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
-     #   docker tag broadcaster_service theclayman/broadcaster_service
+        docker tag broadcaster_service theclayman/broadcaster_service
 
     - name: Build Broadcaster_front Docker image
       run: | 
         cd ./Broadcaster_front
         docker build . --file Dockerfile.dev --tag broadcaster_front
         docker tag broadcaster_front theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
-      #  docker tag broadcaster_service theclayman/broadcaster_front
+        docker tag broadcaster_service theclayman/broadcaster_front
       
     - name: Log into registry
       if: github.event_name != 'pull_request'
@@ -51,5 +51,6 @@ jobs:
       if: github.event_name != 'pull_request'
       run: |
         docker push theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+        docker push theclayman/broadcaster_service
         docker push theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
-      #  docker push theclayman/broadcaster_front
+        docker push theclayman/broadcaster_front
