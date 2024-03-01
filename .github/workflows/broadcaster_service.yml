@@ -24,8 +24,16 @@ jobs:
         echo "version number:"
         cat Broadcaster_front/src/properties.json
         
-    - name: Build the Docker image
-      run: cd ./Broadcaster_service && docker build . --file Dockerfile --tag theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+    - name: Build Broadcaster_serivce Docker image
+      run: |
+        cd ./Broadcaster_service && docker build . --file Dockerfile --tag broadcaster_service
+        docker tag broadcaster_service theclayman/broadcaster_service:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+        docker tag broadcaster_service theclayman/broadcaster_service
+
+   # - name: Build Broadcaster_front Docker image
+   #   run: cd ./Broadcaster_front && docker build . --file Dockerfile.dev --tag theclayman/broadcaster_front:v${{ steps.version.outputs.TAG_NAME }}.${{github.run_number}}
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
     - name: Log into registry
